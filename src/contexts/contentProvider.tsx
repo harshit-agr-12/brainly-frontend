@@ -6,6 +6,7 @@ interface Content {
   title: string;
   type: "youtube" | "twitter" | "linkedIn";
   link: string;
+  tags? : string[];
 }
 
 interface ContentContextType {
@@ -24,6 +25,7 @@ export function ContentProvider({ children }: PropsWithChildren) {
     title: "",
     type: "youtube",
     link: "",
+    tags: []
   }]);
 
   return (

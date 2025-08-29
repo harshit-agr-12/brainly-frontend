@@ -45,7 +45,7 @@ export default function LandingPage() {
         </p>
         <div className="flex gap-4">
           <button className="px-6 py-3 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition"
-          onClick={()=> navigate('/signin')}>
+          onClick={()=> navigate('/signup')}>
             Get Started
           </button>
           <button className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition" onClick={()=> navigate('/brainly')}>

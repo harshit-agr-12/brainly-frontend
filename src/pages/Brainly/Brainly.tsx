@@ -9,6 +9,8 @@ import axios from 'axios';
 
 function Brainly() {
 
+  const apiUrl = import.meta.env.VITE_API_ENDPOINT;
+
   const [open, setOpen] = useState(false);
   const {content,setContent } = useContext(ContentContext)
 
@@ -17,7 +19,7 @@ function Brainly() {
   }
 
   useEffect( ()=>{
-    axios.get('https://brainly-backend-1-td5h.onrender.com/api/v1/content',{
+    axios.get(`${apiUrl}/api/v1/content`,{
       headers :{
           "Authorization" : localStorage.getItem('token')
       }
@@ -36,9 +38,9 @@ function Brainly() {
       <div className='w-full'>
         <TopBar onClose={AddContentHandler} />
         <h3 className='text-lg p-3 font-semibold+'>All Cotent</h3>
-        <div className='flex gap-4 p-4  flex-wrap'>
+        <div className='flex gap-4 p-4  flex-wrap overflow-y-auto h-[80vh]'>
           {
-            content.map(item => <Card  title={item.title} type={item.type}  link={item.link} />)
+            content.map(item => <Card  title={item.title} type={item.type}  link={item.link} tags={item.tags} />)
           }
         </div>
       </div>

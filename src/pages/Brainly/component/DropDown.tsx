@@ -16,7 +16,7 @@ function DropDown({ tags , text , selectedTags  , toggleTag , selectTag}:{
         <div className="flex justify-center relative mt-2">
             <button
                 type="button"
-                className="bg-indigo-500 rounded py-2 w-[70%] px-4 text-white cursor-pointer hover:bg-indigo-700 flex justify-between items-center"
+                className="bg-indigo-500 rounded py-2 w-[70%] px-4 text-white cursor-pointer hover:bg-indigo-700 flex justify-between items-center w-full mx-2"
                 onClick={() => setIsDropdownOpen(prev=> !prev)}
             >
                 <span>

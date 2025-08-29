@@ -8,7 +8,7 @@ function Navbar() {
   const navigate = useNavigate();
 
   function GetStarted(){
-    navigate('/signin');
+    navigate('/signup');
   }
 
   return (
