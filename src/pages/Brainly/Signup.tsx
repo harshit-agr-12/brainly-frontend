@@ -37,9 +37,7 @@ function Signup() {
                 email : email,
                 password : password
             });
-            console.log("i am runnin after axios call")
             const data = response.data;
-            console.log(data.success , data.message);
             if(!data.success){
                 setError(data.message);
                 setSuccess(false);

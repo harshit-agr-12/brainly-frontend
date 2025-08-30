@@ -1,6 +1,7 @@
 
 import { Brain, Search, Sparkles, Cloud, Lock } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import brainly from "../assets/brainly.png";
 import Navbar from "../components/Navbar";
 
 export default function LandingPage() {
@@ -113,7 +114,7 @@ export default function LandingPage() {
           A sneak peek of your Second Brain App in action.
         </p>
         <div className="bg-white border border-gray-200 rounded-xl shadow p-8 max-w-4xl mx-auto">
-          <img src="/src/assets/brainly.png" />
+          <img src={brainly}  alt="brainly" />
         </div>
       </section>
 
