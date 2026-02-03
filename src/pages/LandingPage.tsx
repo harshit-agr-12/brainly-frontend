@@ -1,130 +1,160 @@
+import { useNavigate } from "react-router-dom"
+import Button from "./Brainly/component/Button"
 
-import { Brain, Search, Sparkles, Cloud, Lock } from "lucide-react";
-import { useNavigate } from "react-router-dom";
-import brainly from "../assets/brainly.png";
-import Navbar from "../components/Navbar";
+function LandingPage(){
+  const navigate = useNavigate()
 
-export default function LandingPage() {
+  const scrollToSection = (sectionId: string) => {
+    const element = document.getElementById(sectionId)
+    element?.scrollIntoView({ behavior: 'smooth' })
+  }
 
-  const navigate = useNavigate();
-
-  const features = [
-    {
-      icon: <Search className="w-6 h-6 text-indigo-500" />,
-      title: "Vector Search",
-      description: "Find answers by meaning, not just keywords.",
-    },
-    {
-      icon: <Sparkles className="w-6 h-6 text-indigo-500" />,
-      title: "AI-Powered Q&A",
-      description: "Ask natural language questions and get context-based answers.",
-    },
-    {
-      icon: <Cloud className="w-6 h-6 text-indigo-500" />,
-      title: "Cloud Sync",
-      description: "Access your knowledge base from any device.",
-    },
-    {
-      icon: <Lock className="w-6 h-6 text-indigo-500" />,
-      title: "Secure & Private",
-      description: "Your data is encrypted and never shared.",
-    },
-  ];
-
-  return (
-    <div className="bg-white text-gray-900 font-sans">
-      <Navbar />
-      {/* Hero Section */}
-      <section className="min-h-screen flex flex-col justify-center items-center text-center px-6">
-        <Brain className="w-16 h-16 text-indigo-600 mb-4" />
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">
-          Your Second Brain, <span className="text-indigo-600">Supercharged with AI</span>
-        </h1>
-        <p className="text-lg text-gray-600 max-w-2xl mb-8">
-          Capture, organize, and retrieve your knowledge effortlessly —
-          powered by intelligent vector search and LLMs.
-        </p>
-        <div className="flex gap-4">
-          <button className="px-6 py-3 bg-indigo-600 text-white rounded-lg shadow hover:bg-indigo-700 transition"
-          onClick={()=> navigate('/signup')}>
-            Get Started
-          </button>
-          <button className="px-6 py-3 border border-gray-300 rounded-lg hover:bg-gray-100 transition" onClick={()=> navigate('/brainly')}>
-            Try Demo
-          </button>
-        </div>
-      </section>
-
-      {/* Features */}
-      <section className="bg-gray-50 py-16">
-        <div className="max-w-6xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12">Why Second Brain?</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {features.map((feature, idx) => (
-              <div
-                key={idx}
-                className="bg-white p-6 rounded-xl shadow hover:shadow-lg transition"
-              >
-                <div className="mb-4">{feature.icon}</div>
-                <h3 className="text-xl font-semibold mb-2">{feature.title}</h3>
-                <p className="text-gray-600">{feature.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* How It Works */}
-      <section className="py-16 max-w-6xl mx-auto px-6">
-        <h2 className="text-3xl font-bold text-center mb-12">How It Works</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
-          {[
-            {
-              step: "1",
-              title: "Capture",
-              description: "Add your notes, documents, and ideas into your Second Brain.",
-            },
-            {
-              step: "2",
-              title: "Organize",
-              description: "Tag and categorize your knowledge for quick retrieval.",
-            },
-            {
-              step: "3",
-              title: "Ask & Retrieve",
-              description: "Query with natural language and get AI-powered answers.",
-            },
-          ].map((item) => (
-            <div
-              key={item.step}
-              className="bg-gray-50 p-6 rounded-xl shadow hover:shadow-lg transition"
+  return(
+    <div className="bg-black h-vh w-vw text-gray-200">
+      <main className="max-w-5xl mx-auto">
+      
+        <nav className="flex justify-between items-center sticky w-full top-0 left-0 bg-black/90 backdrop-blur-md text-md px-8 py-4 border-b border-gray-800 z-50">
+          <h1 className="text-purple-400 text-2xl font-bold cursor-pointer hover:text-purple-300 transition-colors" onClick={() => scrollToSection('hero')}>
+            Second Brain
+          </h1>
+          <div className="hidden md:flex items-center gap-8">
+            <button 
+              onClick={() => scrollToSection('features')}
+              className="text-gray-300 hover:text-purple-400 transition-colors duration-300"
             >
-              <div className="text-indigo-600 text-4xl font-bold mb-4">{item.step}</div>
-              <h3 className="text-xl font-semibold mb-2">{item.title}</h3>
-              <p className="text-gray-600">{item.description}</p>
+              Features
+            </button>
+            <button 
+              onClick={() => scrollToSection('contact')}
+              className="text-gray-300 hover:text-purple-400 transition-colors duration-300"
+            >
+              Contact
+            </button>
+          </div>
+          <div className="flex items-center gap-4">
+            <Button 
+              text="Signin"
+              onClick={() => { navigate('/signin')}}
+              variant="secondary"
+              size="sm"
+            />
+            <Button 
+              text="Signup"
+              onClick={() => { navigate('/signup')}}
+              variant="primary"
+              size="sm"
+            />
+          </div>
+        </nav>
+
+        <section id="hero" className="h-screen relative">
+          
+          <div className=" mt-16  text-center flex flex-col gap-10 px-4">
+            <h1 className="text-6xl font-bold text-orange-500 p-10 font-serif ">Your Digital<br />
+            <span className="text-white">Second Brain</span></h1>
+            <p className="text-gray-400 max-w-2xl m-auto text-xl text-center">Capture, organize, and rediscover your digital knowledge with AI-powered intelligence. Never lose track of important content again.</p>
+            <h2 className="text-4xl mb-4">Welcome to Second Brain</h2>
+            <p className="text-lg mb-8">Your personal knowledge management system</p>
+            <div className="flex justify-center gap-4">
+              <Button 
+                text="Get Started"
+                onClick={() => { navigate('/signup')}}
+                variant="primary"
+                size="lg"
+              />
+              <Button 
+                text="Learn More"
+                onClick={() => { navigate('/learn-more')}}
+                variant="secondary"
+                size="lg"
+              />
             </div>
-          ))}
-        </div>
-      </section>
+          </div>
+        </section>
 
-      {/* Screenshot / Mockup Placeholder */}
-      <section className="bg-gray-50 py-16 text-center">
-        <h2 className="text-3xl font-bold mb-6">See It in Action</h2>
-        <p className="text-gray-600 mb-8">
-          A sneak peek of your Second Brain App in action.
-        </p>
-        <div className="bg-white border border-gray-200 rounded-xl shadow p-8 max-w-4xl mx-auto">
-          <img src={brainly}  alt="brainly" />
-        </div>
-      </section>
+        <section id="features" className="py-20 bg-black text-center px-4">
+          <h2 className="text-4xl font-bold text-purple-400 mb-4">Features</h2>
+          <p className="text-lg text-gray-400 mb-12 max-w-2xl mx-auto">
+            Organize your ideas, save valuable content, and build your second brain. With Second Brain, you can collect, categorize, and easily retrieve information—and even share your brain with anyone around the world!
+          </p>
+          
+          <h3 className="text-2xl text-purple-300 mb-8">Core Functionality</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto mb-16">
+            <div className="bg-zinc-950 border border-zinc-800 p-6 rounded-xl hover:border-purple-500 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
+              <div className="text-purple-400 text-4xl mb-4">🔗</div>
+              <h4 className="text-xl font-semibold text-white mb-3">Save Links</h4>
+              <p className="text-gray-500">Store your essential links and categorize them for future reference.</p>
+            </div>
+            <div className="bg-zinc-950 border border-zinc-800 p-6 rounded-xl hover:border-purple-500 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
+              <div className="text-purple-400 text-4xl mb-4">🏷️</div>
+              <h4 className="text-xl font-semibold text-white mb-3">Organize by Tags</h4>
+              <p className="text-gray-500">Tag your saved links to make them easier to find and group.</p>
+            </div>
+            <div className="bg-zinc-950 border border-zinc-800 p-6 rounded-xl hover:border-purple-500 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
+              <div className="text-purple-400 text-4xl mb-4">🌐</div>
+              <h4 className="text-xl font-semibold text-white mb-3">Public Sharing</h4>
+              <p className="text-gray-500">Share your brain with others by making it public.</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            <div className="bg-zinc-950 border border-zinc-800 p-6 rounded-xl hover:border-purple-500 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
+              <div className="text-purple-400 text-4xl mb-4">🔍</div>
+              <h4 className="text-xl font-semibold text-white mb-3">Search Functionality</h4>
+              <p className="text-gray-500">Enable searching within your saved links for quick access.</p>
+            </div>
+            <div className="bg-zinc-950 border border-zinc-800 p-6 rounded-xl hover:border-purple-500 transition-all duration-300 hover:shadow-lg hover:shadow-purple-500/20">
+              <div className="text-purple-400 text-4xl mb-4">🤖</div>
+              <h4 className="text-xl font-semibold text-white mb-3">AI Integration</h4>
+              <p className="text-gray-500">AI-powered insights and recommendations based on your saved links.</p>
+            </div>
+          </div>
+        </section>
 
-      {/* Final CTA */}
-      <section className="py-16 text-center">
-        <h2 className="text-3xl font-bold mb-4">Turn Your Notes into Knowledge</h2>
-        <p className="text-gray-600 mb-8">
-          Start building your AI-powered Second Brain today.
-        </p>    
-      </section>
+        <section id="contact" className="py-20 bg-black text-center px-4 border-t border-zinc-800">
+          <h2 className="text-4xl font-bold text-purple-400 mb-4">Contact Us</h2>
+          <p className="text-lg text-gray-400 mb-8 max-w-2xl mx-auto">
+            Have questions or feedback? We'd love to hear from you!
+          </p>
+          <div className="max-w-md mx-auto">
+            <div className="bg-zinc-950 border border-zinc-800 p-8 rounded-xl">
+              <div className="flex flex-col gap-4">
+                <a 
+                  href="mailto:harshitagrawal1204@gmail.com" 
+                  className="flex items-center justify-center gap-3 text-gray-300 hover:text-purple-400 transition-colors duration-300"
+                >
+                  <span className="text-2xl">📧</span>
+                  <span>contact@secondbrain.com</span>
+                </a>
+                <a 
+                  href="https://github.com/harshit-agr-12" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-3 text-gray-300 hover:text-purple-400 transition-colors duration-300"
+                >
+                  <span className="text-2xl">💻</span>
+                  <span>GitHub</span>
+                </a>
+                <a 
+                  href="https://x.com//HarshitAgr1204" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center justify-center gap-3 text-gray-300 hover:text-purple-400 transition-colors duration-300"
+                >
+                  <span className="text-2xl">🐦</span>
+                  <span>Twitter</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer className="py-6 bg-black border-t border-gray-800 text-center">
+          <p className="text-gray-500">© 2025 Second Brain. All rights reserved.</p>
+        </footer>
+          
+      </main>
     </div>
-  );
+  )
 }
+
+export default LandingPage

@@ -12,7 +12,9 @@ function Signup() {
     const [error , setError] = useState<string | null>(null);
     const [success , setSuccess] = useState(true);
 
-    const apiUrl = import.meta.env.VITE_API_ENDPOINT;
+    const apiUrl = import.meta.env.VITE_API_URL;
+
+    console.log(apiUrl)
 
     async function  handleSubmit(){
         const fullName = nameRef.current?.value;
@@ -32,7 +34,7 @@ function Signup() {
         console.log(fullName,email,password);
 
         try{
-            const response = await axios.post(`${apiUrl}/api/v1/signup`,{
+            const response = await axios.post(`${apiUrl}/auth/signup`,{
                 name : fullName,
                 email : email,
                 password : password
@@ -58,11 +60,12 @@ function Signup() {
     }
 
     return (
-        <div className='h-screen w-screen flex justify-center items-center'>
+        <div className='h-screen w-screen bg-black text-white flex justify-center items-center'>
             <div className='flex flex-col max-w-96 border-1 border-gray-400 justify-center p-7 rounded-md'>
                 <div className='text-center mb-12'>
                     <h1 className='font-bold text-xl '>Welcome to brainly</h1>
-                    <p>A second brain to manage you important links and docs <span className='font-bold'>Brainly</span></p>
+                    <br/>
+                    <p>A <span className="text-blue-500">second brain</span> to manage you important links and docs</p>
                 </div>
                 <label>Full Name</label>
                 <input type='text'  
@@ -76,7 +79,7 @@ function Signup() {
                 <input type='password'  
                 ref={passwordRef}
                 placeholder='******'  className='p-3 border-1 rounded-md border-gray-300 mb-5'/>
-                <button className='text-white bg-gray-700 hover:bg-gray-800 p-2 rounded-md cursor-pointer'
+                <button className='text-white bg-gray-700 hover:bg-gray-800 p-2 rounded-md cursor-pointer active:scale-95 transition-all duration-150'
                     onClick={handleSubmit}
                 >Signup</button>
                 {!success && <p className="text-red-500 text-sm">{error}</p>}

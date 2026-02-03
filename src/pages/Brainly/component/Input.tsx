@@ -1,11 +1,13 @@
 import React from 'react'
 
-function Input({placeholder , ref } : {
+function Input({placeholder , value, onChange , ref } : {
     placeholder : string; 
-    ref : React.RefObject<HTMLInputElement | null>;
+    value ?: string;
+    onChange ?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    ref ?: React.Ref<HTMLInputElement>;
 }){
     return <div>
-        <input  placeholder={placeholder} ref={ref}  type="text" className="w-full px-4 py-2 border-gray-200 border-2 rounded m-2"/>
+        <input  placeholder={placeholder} value={value} onChange={onChange} type="text" className="w-full px-4 py-2 border-gray-200 border-2 rounded m-2" ref={ref} />
     </div>
 }
 

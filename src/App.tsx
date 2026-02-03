@@ -1,8 +1,8 @@
 import { Route, Routes } from 'react-router-dom'
 import Brainly from './pages/Brainly/Brainly'
 import LandingPage from './pages/LandingPage'
-import { Signin } from './pages/Brainly/Signin'
-import  Signup  from './pages/Brainly/Signup'
+import { Signin } from './pages/Signin'
+import  Signup  from './pages/Signup'
 
 function App() {
 

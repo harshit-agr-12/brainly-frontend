@@ -13,11 +13,11 @@ export type ButtonProps = {
 }
 
 const variantStyle = {
-    "primary": "bg-purple-600 text-white hover:bg-purple-500 transition-all duration-300 cursor-pointer",
-    "secondary": "bg-purple-300 text-purple-600 hover:bg-gray-300 transition-all duration-300 cursor-pointer"
+    "primary": "bg-gray-200 text-black hover:bg-gray-300 cursor-pointer",
+    "secondary": "bg-purple-300 text-purple-600 hover:bg-gray-300 cursor-pointer"
 }
 
-const defaultStyle = "rounded-md mx-2 flex gap-2 items-center";
+const defaultStyle = "rounded-md mx-2 flex  items-center";
 
 const sizeVariant = {
     sm: "py-2 px-4",

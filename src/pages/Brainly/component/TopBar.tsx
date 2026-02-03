@@ -1,7 +1,8 @@
 import { Plus, Share } from "lucide-react"
 import Button from "./Button"
 
-function TopBar({ onClose }: { onClose: () => void }) {
+export default function TopBar({ onClose, onShare }: { onClose: () => void; onShare: () => void }) {
+
   return (
     <div className="h-fit w-full flex flex-wrap gap-2 px-2 py-2 items-center justify-end border-b border-gray-200 sm:justify-between">
       {/* Left side: Optional title or space */}
@@ -22,12 +23,10 @@ function TopBar({ onClose }: { onClose: () => void }) {
           variant="secondary"
           size="md"
           text="Share Brain"
-          onClick={() => {}}
+          onClick={onShare}
           startIcon={<Share className="h-5 w-5" />}
         />
       </div>
     </div>
   )
 }
-
-export default TopBar

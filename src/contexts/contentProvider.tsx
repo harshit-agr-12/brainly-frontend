@@ -4,9 +4,11 @@ import type { PropsWithChildren } from "react";
 // Define the content type
 interface Content {
   title: string;
-  type: "youtube" | "twitter" | "linkedIn";
+  type: string;
   link: string;
   tags? : string[];
+  thumbnail? : string;
+  description? : string;
 }
 
 interface ContentContextType {
@@ -16,7 +18,7 @@ interface ContentContextType {
 
 // Default values for the context
 export const ContentContext = createContext<ContentContextType>({
-  content: [{ title: "", type: "youtube", link: "" }],
+  content: [{ title: "", type: "youtube", link: "", thumbnail: "", description: "", tags: [] }],
   setContent: () => {},
 });
 
@@ -25,7 +27,9 @@ export function ContentProvider({ children }: PropsWithChildren) {
     title: "",
     type: "youtube",
     link: "",
-    tags: []
+    tags: [],
+    thumbnail: "",
+    description: ""
   }]);
 
   return (
