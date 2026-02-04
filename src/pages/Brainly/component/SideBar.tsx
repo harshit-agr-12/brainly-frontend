@@ -1,99 +1,168 @@
-import {useContext, useState}  from 'react'
-import { Home ,X , Video , Images , AudioLines ,LogOut , ArrowLeft, ArrowRight} from 'lucide-react'
+import { useContext, useState } from 'react'
+import { Home, Twitter, Video, FileText, Globe, Github, LogOut, ChevronLeft, ChevronRight, Sparkles } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import {motion} from "motion/react"
-import { ContentContext } from '../../../contexts/contentProvider'
-
+import { motion } from "motion/react"
+import { ContentContext, type Content } from '../../../contexts/contentProvider'
 
 function SideBar() {
-  const [tempContent , setTempContent] = useState([{}]);
-  
-  const {setContent , content} = useContext(ContentContext);
+  const [tempContent, setTempContent] = useState<Content[]>([]);
+  const [activeItem, setActiveItem] = useState('home');
+  const { setContent, content } = useContext(ContentContext);
 
-  function filterContent(type : string){
-    const filtered = tempContent.filter((item : any) => item.type === type.toLowerCase());
+  function filterContent(type: string) {
+    const filtered = tempContent.filter((item: any) => item.type === type.toLowerCase());
     setContent(filtered);
   }
 
-
-  const [sideOpen , setSideOpen] = useState(true  );
-  function toogleBar(){
+  const [sideOpen, setSideOpen] = useState(true);
+  function toggleBar() {
     setSideOpen(!sideOpen)
   }
 
-  const navigate =  useNavigate();
+  const navigate = useNavigate();
 
   const items = [
     {
-      icon : <Home className="w-6 h-6 text-green-500" />,
-      title : "home",
-    },{
-      icon : <X className="w-6 h-6 text-white" />,
-      title : "twitter",
-    },{
-      icon : <Video className="w-6 h-6 text-red-500" />,
-      title : "youtube",
-    },{
-      icon : <Images className="w-6 h-6 text-blue-500" />,
-      title : "images",
-    },{
-      icon : <AudioLines className="w-6 h-6 text-gray-500" />,
-      title : "audio",
-    },{
-      icon : <X className="w-6 h-6 text-white" />,
-      title : "articles",
-    },{
-      icon : <X className="w-6 h-6 text-white" />,
-      title : "webpage",
+      icon: <Home className="w-5 h-5" />,
+      title: "home",
+      color: "text-emerald-400",
+      bgColor: "bg-emerald-500/10",
+      borderColor: "border-emerald-500/30"
+    },
+    {
+      icon: <Twitter className="w-5 h-5" />,
+      title: "twitter",
+      color: "text-sky-400",
+      bgColor: "bg-sky-500/10",
+      borderColor: "border-sky-500/30"
+    },
+    {
+      icon: <Video className="w-5 h-5" />,
+      title: "youtube",
+      color: "text-red-400",
+      bgColor: "bg-red-500/10",
+      borderColor: "border-red-500/30"
+    },
+    {
+      icon: <FileText className="w-5 h-5" />,
+      title: "article",
+      color: "text-amber-400",
+      bgColor: "bg-amber-500/10",
+      borderColor: "border-amber-500/30"
+    },
+    {
+      icon: <Github className="w-5 h-5" />,
+      title: "github",
+      color: "text-slate-300",
+      bgColor: "bg-slate-500/10",
+      borderColor: "border-slate-500/30"
+    },
+    {
+      icon: <Globe className="w-5 h-5" />,
+      title: "webpage",
+      color: "text-purple-400",
+      bgColor: "bg-purple-500/10",
+      borderColor: "border-purple-500/30"
     }
   ];
 
-  function handleLogout(){
-
-    localStorage.removeItem("token"); 
+  function handleLogout() {
+    localStorage.removeItem("token");
     navigate('/');
   }
 
   return (
-    <motion.div className={`w-fit text-white  border-gray-200 shadow-2xl border  h-full flex flex-col justify-between   p-2 items-center`}
-    initial = {false}
-    animate = {{
-      width : sideOpen ? '16rem' : '4rem'
-    }}
-    transition={{
-      duration : 0.3 
-    }}
-
+    <motion.div
+      className="relative h-full bg-slate-900/50 backdrop-blur-xl border-r border-slate-800/50 flex flex-col"
+      initial={false}
+      animate={{ width: sideOpen ? '16rem' : '5rem' }}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
     >
-      <div className='flex-col '>
-
-          <div className={`p-2 w-full rounded flex ${sideOpen ? 'justify-between' : 'justify-center'} items-center gap-4 `}>
-            {sideOpen &&<div className='flex gap-2 mr-2'> <h1 className='font-bold text-2xl'>Second</h1> <h1 className='font-bold text-2xl'> Brain</h1> </div>}
-            {sideOpen ? <ArrowLeft className='text-indigo-500 w-6 h-6 cursor-pointer' onClick={toogleBar}/> : <ArrowRight className='text-indigo-500 w-6 h-6 cursor-pointer hover:bg-gray-700 ' onClick={toogleBar}/>}
+      {/* Header */}
+      <div className={`p-4 flex ${sideOpen ? 'justify-between' : 'justify-center'} items-center border-b border-slate-800/50`}>
+        {sideOpen && (
+          <div className='flex items-center gap-2'>
+            <div className='p-2 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-xl'>
+              <Sparkles className='w-5 h-5 text-white' />
+            </div>
+            <span className='font-bold text-lg bg-gradient-to-r from-purple-400 to-indigo-400 bg-clip-text text-transparent'>
+              Second Brain
+            </span>
           </div>
-
-          <div className='flex-col py-2 gap-2'>
-            {items.map(item => <div className='flex gap-3 p-2  hover:bg-gray-700 rounded-xl transition-colors duration-200 cursor-pointer' onClick={()=>{
-              if(item.title === "home"){
-                 if(tempContent.length > 1){
-                  setContent(tempContent);
-                 }else{
-                  setContent(content);
-                 }
-              }else{
-                if(tempContent.length === content.length){
-                  setTempContent(content);
-                }
-                filterContent(item.title);
-              }
-            }} key={item.title }>{item.icon}{sideOpen && <h2>{item.title}</h2>}</div>)}
-          </div>
+        )}
+        <button
+          onClick={toggleBar}
+          className='p-2 rounded-lg bg-slate-800/50 hover:bg-slate-700 border border-slate-700/50 hover:border-slate-600 transition-all duration-200'
+        >
+          {sideOpen
+            ? <ChevronLeft className='w-4 h-4 text-slate-400' />
+            : <ChevronRight className='w-4 h-4 text-slate-400' />
+          }
+        </button>
       </div>
-      <div className='flex gap-4  p-4 cursor-pointer  hover:bg-gray-700 transition-colors duration-300 w-full rounded'
-        onClick={handleLogout}
-      >
-        <LogOut className='w-6 h-6 `' />
-        { sideOpen && <h3>LogOut</h3>}
+
+      {/* Navigation Items */}
+      <div className='flex-1 p-3 space-y-1 overflow-y-auto'>
+        {sideOpen && (
+          <p className='px-3 py-2 text-xs font-semibold text-slate-500 uppercase tracking-wider'>Categories</p>
+        )}
+        {items.map(item => {
+          const isActive = activeItem === item.title;
+          return (
+            <button
+              key={item.title}
+              onClick={() => {
+                setActiveItem(item.title);
+                if (item.title === "home") {
+                  if (tempContent.length > 1) {
+                    setContent(tempContent);
+                  } else {
+                    setContent(content);
+                  }
+                } else {
+                  if (tempContent.length === content.length) {
+                    setTempContent(content);
+                  }
+                  filterContent(item.title);
+                }
+              }}
+              className={`
+                w-full flex items-center gap-3 p-3 rounded-xl
+                transition-all duration-200 group
+                ${isActive
+                  ? `${item.bgColor} ${item.color} border ${item.borderColor}`
+                  : 'text-slate-400 hover:text-white hover:bg-slate-800/50 border border-transparent'
+                }
+                ${!sideOpen ? 'justify-center' : ''}
+              `}
+            >
+              <span className={`flex-shrink-0 ${isActive ? item.color : 'text-slate-500 group-hover:text-slate-300'}`}>
+                {item.icon}
+              </span>
+              {sideOpen && (
+                <span className='text-sm font-medium capitalize'>{item.title}</span>
+              )}
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Logout Button */}
+      <div className='p-3 border-t border-slate-800/50'>
+        <button
+          onClick={handleLogout}
+          className={`
+            w-full flex items-center gap-3 p-3 rounded-xl
+            text-slate-400 hover:text-red-400
+            bg-slate-800/30 hover:bg-red-500/10
+            border border-slate-700/50 hover:border-red-500/30
+            transition-all duration-200
+            ${!sideOpen ? 'justify-center' : ''}
+          `}
+        >
+          <LogOut className='w-5 h-5' />
+          {sideOpen && <span className='text-sm font-medium'>Logout</span>}
+        </button>
       </div>
     </motion.div>
   )

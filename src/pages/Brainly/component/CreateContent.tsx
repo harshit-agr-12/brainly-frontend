@@ -1,4 +1,4 @@
-import { useRef, useState, useContext, useEffect } from "react";
+import { useRef, useState, useContext } from "react";
 import { X as CrossIcon, Sparkles } from "lucide-react"; // Added Sparkles icon
 import Button from "./Button";
 import Input from "./Input";
@@ -75,7 +75,7 @@ export const CreateContent = ({
       setDescription(description.split('\n')[0]);
 
       setAiLoading(false);
-    }catch(error){
+    }catch(error: any){
       console.error("Error generating content details:", error);
       setErrorMsg(error.response?.data?.message || "❌ Failed to generate content details.");
       setAiLoading(false);
@@ -147,100 +147,106 @@ export const CreateContent = ({
         {/* Modal Card */}
         <div
           className="
-                bg-gray-900 border border-gray-800 text-white rounded-2xl shadow-2xl w-full max-w-lg
-                flex flex-col max-h-[90vh] overflow-y-auto animate-fadeIn
+                bg-gradient-to-br from-slate-900 to-slate-800 border border-slate-700/50 text-white rounded-2xl shadow-2xl shadow-purple-500/10 w-full max-w-lg
+                flex flex-col max-h-[90vh] overflow-y-auto
                 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:'none'] [scrollbar-width:'none']
             "
         >
           {/* Header */}
-          <div className="flex justify-between items-center p-6 border-b border-gray-800 bg-gray-900/50 sticky top-0 z-10 backdrop-blur-md rounded-t-2xl">
-            <h2 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-              Add New Content
-            </h2>
+          <div className="flex justify-between items-center p-6 border-b border-slate-700/50 bg-slate-900/50 sticky top-0 z-10 backdrop-blur-xl rounded-t-2xl">
+            <div className="flex items-center gap-3">
+              <div className="p-2 bg-gradient-to-br from-purple-500 to-indigo-500 rounded-xl">
+                <Sparkles size={20} className="text-white" />
+              </div>
+              <h2 className="text-xl font-bold text-white">
+                Add New Content
+              </h2>
+            </div>
             <button
               onClick={onClose}
-              className="p-2 rounded-full hover:bg-gray-800 text-gray-400 hover:text-white transition-colors"
+              className="p-2 rounded-xl hover:bg-slate-700/50 text-slate-400 hover:text-white transition-all duration-200"
             >
               <CrossIcon size={20} />
             </button>
           </div>
 
           {/* Content Body */}
-          <div className="p-6 space-y-6">
+          <div className="p-6 space-y-5">
 
             {/* Link Input Section with AI Button */}
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-400 ml-1">Content Link</label>
-              <div className="flex gap-2">
-                <div className="grow">
-                  <Input placeholder="Paste your link here (YouTube, Twitter, etc.)" ref={linkRef} />
-                </div>
-              </div>
+              <label className="text-sm font-medium text-slate-400 ml-1">Content Link</label>
+              <Input placeholder="Paste your link here (YouTube, Twitter, etc.)" ref={linkRef} />
             </div>
 
             {/* Title Input Section */}
             <div className="space-y-2">
               <div className="flex justify-between items-center">
-                <label className="text-sm font-medium text-gray-400 ml-1">Title</label>
+                <label className="text-sm font-medium text-slate-400 ml-1">Title</label>
                 <button
                   onClick={handleAiGenerate}
                   disabled={aiLoading}
                   className={`
-                                text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-purple-500/30 bg-purple-500/10 text-purple-300 hover:bg-purple-500/20 transition-all
-                                ${aiLoading ? 'opacity-70 cursor-wait' : ''}
-                            `}
+                    text-xs flex items-center gap-1.5 px-3 py-1.5 rounded-full 
+                    bg-gradient-to-r from-purple-600/20 to-indigo-600/20 
+                    border border-purple-500/30 text-purple-300 
+                    hover:from-purple-600/30 hover:to-indigo-600/30 
+                    transition-all duration-200
+                    ${aiLoading ? 'opacity-70 cursor-wait' : 'hover:scale-105'}
+                  `}
                 >
                   <Sparkles size={12} className={aiLoading ? "animate-spin" : ""} />
-                  {aiLoading ? "Generating..." : "Auto-generate Title"}
+                  {aiLoading ? "Generating..." : "Auto-generate with AI"}
                 </button>
               </div>
               <Input placeholder="Enter a descriptive title" value={title} onChange={(e) => setTitle(e.target.value)} />
             </div>
 
             <div className="space-y-2">
-              <div className="flex justify-between items-center">
-                <label className="text-sm font-medium text-gray-400 ml-1">Description</label>
-              </div>
-              <Input placeholder="Enter a descriptive description" value={description} onChange={(e) => setDescription(e.target.value)} />
+              <label className="text-sm font-medium text-slate-400 ml-1">Description</label>
+              <Input placeholder="Enter a brief description" value={description} onChange={(e) => setDescription(e.target.value)} />
             </div>
 
             {/* Type Selection */}
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-400 ml-1">Content Type</label>
+              <label className="text-sm font-medium text-slate-400 ml-1">Content Type</label>
               <DropDown
                 tags={types}
-                text="Select Type"
+                text="Select content type"
                 selectTag={selectedType}
                 toggleTag={toggleType}
-                allowCustom={false} // Explicitly false, or omit as default is false
+                allowCustom={false}
               />
             </div>
 
             {/* Tags Selection */}
             <div className="space-y-2">
-              <label className="text-sm font-medium text-gray-400 ml-1">Tags</label>
+              <label className="text-sm font-medium text-slate-400 ml-1">Tags</label>
               <DropDown
                 tags={tags}
-                text="Select Tags"
+                text="Select or add tags"
                 selectedTags={selectedTags}
                 toggleTag={toggleTag}
-                allowCustom={true} // Add this prop
+                allowCustom={true}
               />
             </div>
 
             {/* Error Message Area */}
             {errorMsg && (
-              <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-lg text-red-200 text-sm text-center">
+              <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-red-300 text-sm flex items-center gap-3">
+                <div className="p-1 bg-red-500/20 rounded-lg">
+                  <CrossIcon size={14} className="text-red-400" />
+                </div>
                 {errorMsg}
               </div>
             )}
           </div>
 
           {/* Footer Actions */}
-          <div className="p-6 pt-2 border-t border-gray-800 bg-gray-900/50 sticky bottom-0 backdrop-blur-md rounded-b-2xl flex justify-end gap-3">
+          <div className="p-6 pt-4 border-t border-slate-700/50 bg-slate-900/50 sticky bottom-0 backdrop-blur-xl rounded-b-2xl flex justify-end gap-3">
             <button
               onClick={onClose}
-              className="px-4 py-2 rounded-lg text-sm font-medium text-gray-400 hover:text-white hover:bg-gray-800 transition-colors"
+              className="px-5 py-2.5 rounded-xl text-sm font-medium text-slate-400 hover:text-white hover:bg-slate-700/50 border border-slate-700 hover:border-slate-600 transition-all duration-200"
             >
               Cancel
             </button>
@@ -249,6 +255,7 @@ export const CreateContent = ({
               text={loading ? "Saving..." : "Add Content"}
               size="md"
               onClick={handleSubmit}
+              disabled={loading}
             />
           </div>
         </div>

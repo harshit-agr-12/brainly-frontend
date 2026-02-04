@@ -2,7 +2,8 @@ import { createContext, useState, type Dispatch,type SetStateAction } from "reac
 import type { PropsWithChildren } from "react";
 
 // Define the content type
-interface Content {
+export interface Content {
+  _id?: string;
   title: string;
   type: string;
   link: string;
